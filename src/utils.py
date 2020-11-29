@@ -1,0 +1,36 @@
+# _*_ coding:utf-8 _*_
+# utils functions
+
+
+def set_window_center(window, width=None, height=None, minsize=True, resize=False):
+    """设置窗口宽高及居中"""
+    # 获取窗口宽高
+    if width == None or height == None:
+        # 宽高为 None 时取窗口自身大小
+        window.update_idletasks() # 更新
+        window.withdraw() # 隐藏重绘
+        # window.update() # 获取窗口宽高之前需要先刷新窗口
+    if width is None:
+        width = window.winfo_width()
+    if height is None:
+        height = window.winfo_height()
+
+    # 获取屏幕宽高
+    w_s = window.winfo_screenwidth()
+    h_s = window.winfo_screenheight()
+
+    # 计算 x, y 位置
+    x_co = (w_s - width) / 2
+    y_co = (h_s - height) / 2
+
+    # 设置窗口宽高和居中定位
+    window.geometry("%dx%d+%d+%d" % (width, height, x_co, y_co))
+    window.deiconify() # 显示
+    # 是否设置窗口最小尺寸
+    if minsize:
+        window.minsize(width, height)
+    # 是否可调整大小
+    if resize:
+        window.resizable(True, True)
+    else:
+        window.resizable(False, False)
